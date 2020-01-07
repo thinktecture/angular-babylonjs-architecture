@@ -1,5 +1,5 @@
-import { ElementRef, Injectable } from '@angular/core';
-import { Engine, Scene } from '@babylonjs/core';
+import {ElementRef, Injectable} from '@angular/core';
+import {Engine, Scene} from '@babylonjs/core';
 
 @Injectable({
     providedIn: 'root',
@@ -21,10 +21,13 @@ export class EngineContext {
     start(scene: Scene) {
         this._engine.stopRenderLoop();
         this._engine.runRenderLoop(() => scene.render());
+
+        window.addEventListener('resize', () => this._engine.resize());
     }
 
     stop() {
         this._engine.stopRenderLoop();
         this._engine.dispose();
+        window.removeEventListener('resize', ev => {});
     }
 }

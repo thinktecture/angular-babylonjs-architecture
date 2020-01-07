@@ -14,11 +14,11 @@ export class MaterialService {
     getBoxMaterial(): Material {
         if (!this.materials.box) {
             const mat = new StandardMaterial('matBox' + Math.random(), this.sceneContext.scene);
-            // mat.diffuseTexture = new Texture('https://images.pexels.com/photos/168442/pexels-photo-168442.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-            //     this.sceneContext.scene);
-
-            mat.diffuseTexture = new Texture('/assets/textures/wood1/Wood_020_basecolor.jpg',
+            mat.diffuseTexture = new Texture('https://images.pexels.com/photos/168442/pexels-photo-168442.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
                 this.sceneContext.scene);
+
+            // mat.diffuseTexture = new Texture('/assets/textures/wood1/Wood_020_basecolor.jpg',
+            //     this.sceneContext.scene);
             mat.bumpTexture = new Texture('/assets/textures/wood1/Wood_020_normal.jpg',
                 this.sceneContext.scene);
             mat.ambientTexture = new Texture('/assets/textures/wood1/Wood_020_ambientOcclusion.jpg',
@@ -43,5 +43,15 @@ export class MaterialService {
         }
 
         return this.materials.ground;
+    }
+
+    getBulbTexture(): Material {
+        if (!this.materials.bulb) {
+            const mat = new StandardMaterial('matBulb', this.sceneContext.scene);
+            // tslint:disable-next-line:max-line-length
+            mat.emissiveColor = new Color3(255, 255, 150);
+            this.materials.bulb = mat;
+        }
+        return this.materials.bulb;
     }
 }

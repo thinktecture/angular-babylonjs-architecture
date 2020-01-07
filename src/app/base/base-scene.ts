@@ -1,4 +1,4 @@
-import {Engine, FreeCamera, MeshBuilder, Scene, SceneOptions, Vector3} from '@babylonjs/core';
+import {Engine, FreeCamera, Scene, SceneOptions, Vector3} from '@babylonjs/core';
 import {LightService} from '../services/light.service';
 
 const scaleUnit = 10;

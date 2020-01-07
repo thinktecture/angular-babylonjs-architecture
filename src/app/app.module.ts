@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
+import {Bulb} from './base/bulb';
 import {Ground} from './base/ground';
 import {LightService} from './services/light.service';
 import {MaterialService} from './services/material.service';
@@ -20,6 +21,7 @@ import {SlotBox} from './slot/slot-box';
         provideSlot(SlotContainer),
         provideSlot(SlotBox, [LightService, MaterialService]),
         provideSlot(Ground, [MaterialService]),
+        provideSlot(Bulb, [LightService, MaterialService]),
 
     ],
     bootstrap: [AppComponent],

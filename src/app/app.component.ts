@@ -1,8 +1,10 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {Vector3} from '@babylonjs/core';
+import {Bulb} from './base/bulb';
 import {Ground} from './base/ground';
 import {SCALE} from './constants';
 import {EngineContext} from './services/engine-context.service';
+import {LightService} from './services/light.service';
 import {SceneContext} from './services/scene-context.service';
 import {SlotFactory} from './services/slot-factory.service';
 import {SlotContainer} from './slot/slot-container';
@@ -24,13 +26,21 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     private readonly rowsOfBoxes = 4;
 
 
-    constructor(private engine: EngineContext, private scene: SceneContext, private readonly slotFactory: SlotFactory) {
-    }
+    constructor(private engine: EngineContext, private scene: SceneContext, private readonly slotFactory: SlotFactory,
+                private readonly lightService: LightService,
+    ) {}
 
     ngAfterViewInit(): void {
         this.scene.createMyScene(this.canvasRef);
         this.createBoxes();
         this.slotFactory.create(Ground, { width: 100 * SCALE, height: 50 * SCALE }, 'Ground', SlotType.Ground);
+
+        this.lightService.pointLights.forEach(light => this.slotFactory.create(Bulb, {
+            height: 1.5,
+            width: 3,
+            position: light.position,
+        }, 'bulb' + light.name));
+
         this.scene.startMyScene();
     }
 

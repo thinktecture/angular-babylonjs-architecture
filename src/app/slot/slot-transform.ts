@@ -23,6 +23,7 @@ export enum SlotType {
     Column,
     Random,
     Ground,
+    Bulb,
 }
 
 export interface Dimensions {
