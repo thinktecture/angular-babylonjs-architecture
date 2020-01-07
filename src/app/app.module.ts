@@ -9,6 +9,7 @@ import {MaterialService} from './services/material.service';
 import {provideSlot} from './services/slot-factory.service';
 import {SlotContainer} from './slot/slot-container';
 import {SlotBox} from './slot/slot-box';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import {SlotBox} from './slot/slot-box';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
     ],
     providers: [
         provideSlot(SlotContainer),

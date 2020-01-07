@@ -1,0 +1,1904 @@
+/*
+Theme Name: Gridspace
+Theme URI: http://graphpaperpress.com/themes/gridspace/
+Author: Graph Paper Press
+Author URI: http://graphpaperpress.com
+Description: Showcase your images in this clean, responsive grid-based theme packed with color and layout options.
+Version: 1.1.6
+License: GNU General Public License v2 or later
+License URI: license.txt
+Tags: art, black, blog, classic-menu, clean, custom-background, custom-colors, custom-header, custom-menu, dark, design, editor-style, featured-images, flexible-header, fluid-layout, infinite-scroll, left-sidebar, light, minimal, modern, multiple-menus, one-column, photoblogging, photography, portfolio, post-formats, responsive-layout, rtl-language-support, sticky-post, theme-options, three-columns, translation-ready, two-columns, white
+*/
+
+/* Stylesheet Legend
+ *
+ * 1.   Resets
+ * 2.   Structure
+ * 3.   Fonts
+ * 4.   Header
+ * 5.   Menu
+ * 6.   Content
+ * 7.   Portfolio Grid/List
+ * 8.   Post Formats
+ * 9.   Images & Media
+ * 10.  Forms
+ * 11.  Comments
+ * 12.  Tables
+ * 13.  Sidebar & Widgets
+ * 14.  Footer
+ * 15.  Buttons
+ * 16.  Messages
+ * 17.  Clear Floats
+ * 18.  Icons
+ * 19.  WordPress.com style overrides
+ * 20.  Responsiveness: Tablets
+ * 21.  Responsiveness: Mobile
+ * 22.  Retina Icons
+ * 23.  Infinite Scroll
+ *
+ * Colors are loaded from one of two styleheets: default.css or dark.css
+ * These stylesheets are located in /inc/css/
+ *
+ */
+
+/* 1. Resets
+-------------------------------------------------------------- */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+fieldset, img {
+    border: 0;
+}
+caption, cite, dfn, th, var {
+    font-style: normal;
+    font-weight: normal;
+}
+address {
+    font-weight: bold;
+}
+caption, th {
+    text-align: left;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+    clear: both;
+}
+q:before, q:after {
+    content: '';
+}
+abbr, acronym {
+    border: 0;
+}
+
+
+/* 2. Structure
+-------------------------------------------------------------- */
+html {
+    overflow-y: scroll; /* Force scrollbars 100% of the time */
+}
+body {
+    min-height: 100%;
+    margin: 0 2em 2em;
+}
+#page {
+    display: block;
+    margin: 0 auto 2em;
+    max-width: 1000px;
+    padding: 0 25px;
+    position: relative;
+}
+#branding {
+    float: left;
+    margin: 1em 2% 0 0;
+    max-width: 250px;
+    width: 18%;
+}
+#colophon {
+    clear: both;
+    display: block;
+    margin: 0 auto 3em auto;
+    width: 100%;
+}
+#primary {
+    float: right;
+    width: 80%;
+    margin: 0em auto;
+}
+#menu-wrap {
+    width: 100%;
+    margin-bottom: 3em;
+}
+#secondary  {
+    float: left;
+    overflow: hidden;
+    width: 18%;
+    margin-right: 2%;
+    clear: left;
+}
+#secondary .widget-area .widget-title {
+    margin: 1.2em 0 0.5em;
+}
+#secondary .widget {
+    margin: 1.8em auto;
+    padding-bottom: 3em;
+}
+#secondary aside.widget_search {
+	padding-bottom: 2em;
+}
+.widget ul, .widget ol {
+    margin:0;
+}
+/* Increase the size of the content area for templates without sidebars */
+.full-width #primary,
+.image-attachment #primary,
+.error404 #primary {
+    margin: 0
+}
+/* Text meant only for screen readers */
+.screen-reader-text, .assistive-text {
+    position: absolute;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+}
+/* Alignment */
+.alignleft {
+    display: inline;
+    float: left;
+}
+.alignright {
+    display: inline;
+    float: right;
+}
+.aligncenter {
+    clear: both;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* 3. Fonts
+-------------------------------------------------------------- */
+html, .fancy, .says, cite, blockquote, input, textarea {
+    font-family: "Lora", Georgia, Cambria, "Times New Roman", Times, serif;
+    font-size: 14px;
+    line-height: 1.8;
+}
+h1, h2, h3, h4, h5, h6, .menu-top-menu {
+    font-family: "Oswald", "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: 400;
+}
+h1 {
+    font-size: 2em;
+    margin-bottom: 0.75em;
+    line-height: 1.5;
+}
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+    line-height: 1.3;
+}
+h3 {
+    font-size: 1.25em;
+    margin-bottom: 2.2em;
+    line-height: 1.2;
+    margin-top: 3.5em;
+}
+h4 {
+    font-size: 1.125em;
+    margin-bottom: 1.333em;
+    line-height: 1.333;
+}
+
+h5, h6 {
+    font-size: 1em;
+    margin-bottom: 1.5em;
+    line-height: 1.5;
+}
+p, address {
+    margin-bottom: 1.5em;
+}
+figure {
+    margin-bottom: 1.5em;
+    padding: 3.636363636364%; /* 20px / 550px */
+    width: 93.220338983051%; /* 550px / 590px */
+}
+figure img {
+    display: block;
+    margin-bottom: 0;
+}
+figcaption {
+    font-size: 0.75em;
+}
+a {
+    text-decoration: none;
+}
+a:visited {
+    opacity: 0.8;
+}
+a:hover {
+    text-decoration: none;
+}
+a:active, a:focus {
+    position: relative;
+}
+q, i, em, cite, .fancy, .says {
+    font-style: italic;
+    font-weight: inherit;
+}
+.fancy, h1.page-title, h1.entry-title {
+    text-transform: lowercase;
+}
+.fancy {
+    font-size: 1.05em;
+}
+b, strong {
+    font-weight: bold;
+    font-style: inherit;
+}
+s, del {
+    text-decoration: line-through;
+}
+dt {
+    font-weight: bold;
+}
+dd {
+    background:none no-repeat left top;
+    padding-left: 50px;
+}
+.entry-meta {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+small, .entry-meta, .wp-caption .wp-caption-text, .gallery-caption {
+    font-size: 0.8em;
+}
+pre, code {
+    font-family: monospace;
+    font-size: 1em;
+}
+pre {
+    overflow: auto;
+    margin-bottom: 1.5em;
+    line-height: 24px; /* Having to define explicit pixel values: ( */;
+}
+code {
+    line-height: 1;
+}
+ul, ol {
+    list-style-type: square;
+    margin: 0 0 1.5em 1em;
+}
+.entry-content ol {
+    list-style-type: decimal;
+}
+.entry-content ul,
+.entry-content ol {
+	margin-left: 3em;
+}
+ul ul, ol ol, ul ol, ol ul { /* Let’s take care of lists in lists */
+    margin: 0 0 0 20px;
+}
+hr {
+    clear: both;
+    float: none;
+    width: 100%;
+    height: 1px;
+    margin: 0 0 1.420em;
+    border: none;
+}
+hr.space {
+    visibility: hidden;
+}
+
+/* 4. Header
+-------------------------------------------------------------- */
+#site-title {
+    font-size: 2.25em;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+    word-wrap: break-word;
+}
+#site-description {
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.5em;
+    margin: .5em 0 1em;
+    word-wrap: break-word;
+}
+#site-intro {
+    float: left;
+    font-size: 2.5em;
+    line-height: 1.4;
+    margin: 0.8em 0 0;
+    padding-bottom: 0.3em;
+    text-transform: lowercase;
+    width: 79.5%;
+    clear: none;
+}
+#site-header {
+    display: block;
+    margin: 0 -25px;
+}
+#branding hgroup {
+    padding: 10px 0;
+}
+
+/* 5. Menu
+-------------------------------------------------------------- */
+.menu-top-menu a {
+    padding: 1px 5px;
+}
+#access {
+    display: block;
+    float: left;
+    padding: 1.8em 0;
+    width: 100%;
+}
+#access .menu,
+.widget .menu  {
+    display: block;
+    font-size: 11px;
+    font-weight: 200;
+    letter-spacing: 1px;
+    list-style: none;
+    margin: 0;
+    text-transform: uppercase;
+}
+#access .menu li,
+.widget .menu li {
+    position: relative;
+    line-height: 1.5;
+}
+#access .menu a,
+.widget .menu a {
+    display: block;
+    text-decoration: none;
+    word-wrap: break-word;
+    padding: 4px 20px 4px 0;
+}
+
+#access .menu .parent span,
+.widget .menu .parent span {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+    width: 10px;
+    height: 6px;
+    padding: 13px 0px 13px 5px;
+}
+#access .menu ul .parent span, .widget .menu ul .parent span {
+    padding: 9px 5px;
+}
+#access .menu .parent span:hover,
+.widget .menu .parent span:hover {
+    cursor: pointer;
+}
+#access .menu .parent span:hover .caret,
+.widget .menu .parent span:hover .caret {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+#access ul ul, #access ul ul ul,
+.widget .menu ul, .widget .menu ul ul {
+    padding: 4px 0 4px 10px;
+    margin: 0;
+    list-style-type: none;
+    text-transform: none;
+}
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  content: "";
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+}
+.open .caret {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.menu-top-menu {
+    float: right;
+    font-size: 0.8em;
+    list-style: none outside none;
+    margin: 0.2em 0 0;
+    padding: 10px;
+    position: relative;
+    text-transform: uppercase;
+    z-index: 1;
+}
+.has-welcome-msg .menu-top-menu {
+    padding-right: 0;
+}
+.has-header-image .menu-top-menu {
+    position: absolute;
+    z-index: 1;
+    right: 10px;
+}
+.menu-top-menu li {
+    float: left;
+    margin: 0 0.5em 0em 0;
+}
+.menu-top-menu li:last-child {
+    margin-right: 0;
+}
+.menu .sub-menu {
+    display: none;
+}
+.menu .sub-menu.show {
+    display: block;
+}
+
+/* social icons */
+
+@font-face {
+    font-family: 'Genericons';
+    src: url('images/font/genericons-regular-webfont.eot');
+}
+@font-face {
+    font-family: 'Genericons';
+    src: url(data:application/font-woff;charset=utf-8;base64,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) format('woff'),
+         url('images/font/genericons-regular-webfont.ttf') format('truetype'),
+         url('images/font/genericons-regular-webfont.svg#genericonsregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.menu-top-menu li.twitter a,
+.menu-top-menu li.facebook a,
+.menu-top-menu li.facebook-alt a,
+.menu-top-menu li.wordpress a,
+.menu-top-menu li.googleplus a,
+.menu-top-menu li.linkedin a,
+.menu-top-menu li.linkedin-alt a,
+.menu-top-menu li.pinterest a,
+.menu-top-menu li.pinterest-alt a,
+.menu-top-menu li.flickr a,
+.menu-top-menu li.vimeo a,
+.menu-top-menu li.youtube a,
+.menu-top-menu li.tumblr a,
+.menu-top-menu li.instagram a,
+.menu-top-menu li.googleplus-alt a,
+.menu-top-menu li.path a,
+.menu-top-menu li.skype a,
+.menu-top-menu li.digg a {
+    display: inline-block;
+    width: 14px;
+    height: 20px;
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
+    line-height: 1;
+    font-family: 'Genericons';
+    text-decoration: inherit;
+    font-weight: normal;
+    font-style: normal;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.menu-top-menu li.twitter a:before {
+    content: '\f202';
+}
+.menu-top-menu li.facebook-alt a:before {
+    content: '\f203';
+}
+.menu-top-menu li.facebook a:before {
+    content: '\f204';
+}
+.menu-top-menu li.wordpress a:before {
+    content: '\f205';
+}
+.menu-top-menu li.googleplus-alt a:before {
+    content: '\f206';
+}
+.menu-top-menu li.googleplus a:before {
+    content: '\f218';
+}
+.menu-top-menu li.linkedin a:before {
+    content: '\f207';
+}
+.menu-top-menu li.linkedin-alt a:before {
+    content: '\f208';
+}
+.menu-top-menu li.pinterest a:before {
+    content: '\f209';
+}
+.menu-top-menu li.pinterest-alt a:before {
+    content: '\f210';
+}
+.menu-top-menu li.flickr a:before {
+    content: '\f211';
+}
+.menu-top-menu li.vimeo a:before {
+    content: '\f212';
+}
+.menu-top-menu li.youtube a:before {
+    content: '\f213';
+}
+.menu-top-menu li.tumblr a:before {
+    content: '\f214';
+}
+.menu-top-menu li.instagram a:before {
+    content: '\f215';
+}
+.menu-top-menu li.path a:before {
+    content: '\f219';
+}
+.menu-top-menu li.skype a:before {
+    content: '\f220';
+}
+.menu-top-menu li.digg a:before {
+    content: '\f221';
+}
+
+/*.menu-top-menu li.facebook a,
+.menu-top-menu li.twitter a,
+.menu-top-menu li.rss a,
+.menu-top-menu li.vimeo a {
+    text-indent: -9999em;
+    float: left;
+    padding: 3px;
+    height: 16px;
+    margin-top: -3px;
+}
+.menu-top-menu .facebook a {
+    width: 14px;
+    background-position: -24px 0;
+}
+.menu-top-menu .facebook a:hover {
+    background-position: -24px -25px;
+}
+.menu-top-menu .twitter a {
+    width: 16px;
+    background-position: -45px 0;
+}
+.menu-top-menu .twitter a:hover {
+    background-position: -45px -25px;
+}
+.menu-top-menu .rss a {
+    width: 16px;
+    background-position: 0px 0;
+}
+.menu-top-menu .rss a:hover {
+    background-position: 0 -25px;
+}
+.menu-top-menu .vimeo a {
+    width: 16px;
+    background-position: -68px 0;
+}
+.menu-top-menu .vimeo a:hover {
+    background-position: -68px -25px;
+}*/
+
+
+/* 6. Content
+-------------------------------------------------------------- */
+article {
+    margin: 0 0 4em;
+}
+header.page-header {
+    margin: 0.4em 0.3em 2em 0;
+}
+article h1.entry-title {
+    font-size: 2em;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+article h1.entry-title a,
+article h2.entry-title a {
+    text-decoration: none;
+}
+article h1.entry-title a:hover,
+article h2.entry-title a:hover {
+    text-decoration: none;
+}
+h1.widget-title, h3.widget-title {
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+article .entry-content img {
+    max-width: 100%;
+    height: auto;
+}
+#ie8 article .entry-content img {
+	width: auto;
+}
+/* for already upload images */
+article .entry-content a.thumb img {
+    display: block; /* hide the bottombar bug */
+}
+img.no-image {
+    overflow: hidden;
+    display: block;
+    float: left;
+    margin-bottom: -3px;
+}
+article .entry-content iframe,
+article .entry-content embed {
+    max-width: 100%;
+}
+article .entry-meta {
+    font-size: 0.8em;
+    letter-spacing: normal;
+    line-height: 1.4;
+    padding: 1em 0%;
+    text-transform: none;
+}
+#content:before,
+#content:after {
+    content: '';
+    display: table;
+}
+#content:after {
+    clear: both;
+}
+#content {
+    zoom: 1;
+    clear: both; /* IE7/8 icons floating in content fix */
+}
+#content-inner {
+    position: relative;
+}
+h1.page-title,
+h1.entry-title {
+    line-height: 1.5;
+    font-size: 2.5em;
+    margin: 0em 0 0;
+    padding-bottom: 0.3em;
+    text-transform: lowercase;
+}
+.single h1.entry-title,
+.page h1.entry-title {
+    margin: 0.4em 0 1em;
+    padding: 0 0 0.6em;
+}
+.format-image .post-format-content img {
+    max-width: 100%;
+    height: auto;
+}
+.post-format-content .quote p.quote-author {
+    font-size: 1em;
+    margin-bottom: 0;
+    font-style: normal;
+}
+.post-format-content {
+    margin-bottom: 1.4em;
+    overflow: hidden;
+}
+.sticky {
+    position: relative;
+    padding: 2em;
+}
+.sticky:before {
+    content:"";
+    position:absolute;
+    top:0;
+    right:0;
+    border-width:0 24px 24px 0;
+    border-style:solid;
+    display:block;
+    width:0;
+}
+.portfolios .sticky {
+    background-color: transparent;
+    padding: 0;
+}
+.portfolios .sticky:before {
+    content:"";
+    position:relative;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.hide {
+    display: none;
+}
+.entry-header .entry-meta {
+    margin: 0 0 2.5em 0;
+}
+.single-author .entry-meta .byline {
+    display: none;
+}
+#primary nav {
+    display: block;
+    overflow: hidden;
+}
+#primary nav .nav-previous {
+    float: left;
+    max-width: 50%;
+}
+#primary nav .nav-next {
+    float: right;
+    text-align: right;
+    max-width: 50%;
+}
+#primary #nav-above {
+    display: none;
+}
+.paged #primary #nav-above,
+.single #primary #nav-above {
+    display: block;
+    margin-bottom: 3em;
+}
+#nav-below {
+    margin: 3em 0em;
+}
+.page-link {
+    clear: both;
+    margin: 0 0 1em;
+}
+.page .edit-link {
+    clear: both;
+    display: block;
+}
+.subpage {
+    clear: both;
+    display: block;
+}
+.subpage li {
+    display: inline;
+    margin: 0 20px;
+}
+.subpage li:first-child { margin-left: 0 }
+
+/* 404 page */
+.error404 {
+    overflow: hidden;
+    border: none;
+}
+.error404 #primary .widget {
+    float: left;
+    width: 47%;
+    margin-left: 3%;
+    margin-top: 3em;
+}
+.error404 .widget .widgettitle,
+.error404 .widget ul {
+    margin-right: 1em;
+    list-style: none;
+}
+
+/* Search */
+.search .portfolio {
+    width:100%;
+    margin: 0 0 4em;
+}
+.search .portfolio .entry-header {
+    position:relative;
+    padding: 15px 0;
+}
+.search .portfolio footer.entry-meta {
+    position: relative;
+    padding: 1em 0;
+}
+
+/* Notices */
+.post .notice, .error404 #searchform {
+    background: transparent;
+    display: block;
+    padding: 0;
+}
+
+/* Image Attachments */
+.image-attachment div.entry-meta {
+    float: left;
+}
+.image-attachment nav {
+    float: right;
+    margin: 0 0 1em 0;
+}
+.image-attachment .entry-content {
+    clear: both;
+}
+.image-attachment .entry-content .entry-attachment {
+    margin: 0 0 1em;
+    padding: 1em;
+    text-align: center;
+}
+.image-attachment .entry-content .attachment {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Entry Meta */
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.entry-meta .left {
+    width: auto;
+}
+.entry-meta .right {
+    text-align: right;
+}
+.comments-link {
+}
+
+/* 7. Portfolio Grid & List
+-------------------------------------------------------------- */
+.grid a.thumb {
+    display: block;
+    overflow: hidden;
+}
+.portfolios article {
+    border: none;
+}
+.portfolios h2.entry-title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.portfolios article .entry-meta {
+    border:none;
+    margin-bottom: 1.5em;
+    padding: 0;
+}
+.portfolios.list article .entry-meta {
+    font-size: .8em;
+}
+.portfolio .entry-content {
+    overflow: hidden;
+    position: relative;
+}
+.portfolio .not-found .entry-content {
+    background: none;
+}
+.portfolio  {
+    width: 47%;
+    margin: 0 3.2% 2em 0;
+    float: left;
+    display: inline;
+}
+.vertical .portfolio {
+    width: 31%;
+}
+.portfolios article.portfolio.last,
+.infinite-wrap article.portfolio.last {
+	margin-right: 0;
+}
+#ie7 .vertical .portfolio,
+#ie8 .vertical .portfolio  {
+    width: 30.65%;
+}
+body.vertical article.first,
+body.square article.first,
+body.horizontal article.first {
+   clear: both;
+}
+.list .portfolio .entry-summary {
+	overflow: hidden; /* maintain margin to the left of the content */
+}
+.list .portfolio {
+    width: 100%;
+    margin: 1em 0 3em;
+    padding-bottom: 1em;
+}
+.list .portfolio .entry-text {
+    position: relative;
+    padding: 0;
+    font-size: 1em;
+}
+.list .portfolio .entry-text h2 {
+    clear: none;
+}
+.list .portfolio .entry-content footer.entry-meta {
+	float: none;
+	width: auto;
+	clear: none;
+}
+.grid .portfolio .entry-text header.entry-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1em 5%;
+    width: 90%;
+}
+.grid .portfolio .entry-text footer.entry-meta {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1em 5%;
+    margin-bottom: 0;
+    width: 90%;
+}
+.grid .entry-title {
+    margin-bottom: 0.3em;
+    color: #666;
+}
+.list .portfolio .thumb {
+    float: left;
+    margin: 0 1.5em 2em 0;
+    position: relative;
+    z-index: 1;
+
+}
+.list .portfolio .no-image {
+    float: none;
+    margin: 0;
+}
+.list .portfolio .placeholder {
+    display: none;
+}
+.portfolio footer.entry-meta {
+    clear: both;
+    display: block;
+    width: 100%;
+}
+.list .portfolio footer.entry-meta {
+    position: relative;
+    padding: 0;
+    width: 100%;
+}
+.grid .portfolio footer.entry-meta {
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+}
+
+#controls {
+    float: right;
+    margin: 1.2em 1% 0;
+}
+.blog #controls,
+.author #controls {
+    margin-bottom: 1em;
+}
+.has-header-image #controls {
+    margin: 1em 0.5% 1em;
+}
+.control {
+    border: none;
+    float: left;
+    margin-right: 0.5em;
+    padding: 0;
+    display: block;
+    width: 14px;
+    height: 14px;
+    text-indent: -999em;
+}
+#show_grid {
+    background-position: 0 100%;
+}
+#show_grid.active {
+    background-position: 0 0;
+}
+#show_list {
+    background-position: 100% 0;
+    margin-right: 0;
+}
+#show_list.active {
+    background-position: 100% 100%;
+}
+#content ul.children {
+    list-style: square
+}
+.commentlist .pingback {
+    padding-top: 15px;
+}
+#comments-title {
+    margin-bottom: 0;
+}
+
+/* 8. Post Formats
+-------------------------------------------------------------- */
+
+/* Aside */
+.format-aside .entry-header {
+    display: none;
+}
+.single .format-aside .entry-header {
+    display: block;
+}
+.single .format-aside .entry-content,
+.single .format-aside .entry-summary {
+    padding-top: 0;
+}
+
+/* Gallery */
+.format-gallery .gallery-thumb {
+    float: left;
+    margin: 0 1em 0 0;
+}
+/* Image */
+.format-image .entry-header {
+    display: block;
+}
+.single .format-image .entry-header {
+    display: block;
+}
+.single .format-image .entry-content,
+.single .format-image .entry-summary {
+    padding-top: 0;
+}
+/* Quote */
+blockquote {
+    padding: 2em;
+    margin: 1.5em 0;
+}
+.comment-content blockquote {
+    padding: 1em;
+}
+blockquote p {
+    font-size: 1.5em;
+    font-style: italic;
+    padding: 4px;
+    position: relative;
+    display: inline;
+    line-height: 2em;
+}
+.comment-content blockquote p {
+    font-size: 1em;
+    line-height: 1.25em;
+}
+.format-quote .quote-author {
+    text-align: right;
+}
+.format-quote .source {
+    font-size: .8em;
+    font-family: Georgia, Times, serif;
+    font-style: italic;
+}
+
+/* Chat */
+.single-format-chat .entry-content {
+    padding-left: 1em;
+    border-left: 5px solid #ccc;
+}
+
+/* 9. Images & Media
+-------------------------------------------------------------- */
+a img {
+    border: none;
+}
+p img {
+    margin-bottom: 2em; /* a small bottom margin prevents content floating under images */ }
+/*
+Resize images to fit the main content area.
+- Applies only to images uploaded via WordPress by targeting size-* classes.
+- Other images will be left alone. Use "size-auto" class to apply to other images.
+*/
+img.size-auto,
+img.size-full,
+img.size-large,
+img.size-medium,
+.attachment img,
+.widget-area img,
+.wp-caption,
+img.site-logo,
+#site-header img {
+    max-width: 100%; /* When images are too wide for containing element, force them to fit. */
+    height: auto; /* Override height to match resized width for correct aspect ratio. */
+}
+img.wp-post-image {
+    float: left;
+    max-width: 100%;
+    height: auto;
+}
+img.alignleft,
+.wp-caption.alignleft {
+    margin-right: 2em;
+}
+img.alignright,
+.wp-caption.alignright {
+    margin-left: 2em;
+}
+img.alignnone {
+    margin: 0;
+}
+img.aligncenter,
+.wp-caption.aligncenter {
+    margin-top: 2em;
+}
+.wp-caption {
+   background-repeat:repeat-x;
+   margin: 1em auto;
+   max-width: 97.28813559322%;
+   padding: .8em 1.393728222997%;
+   text-align: center;
+}
+.wp-caption .wp-caption-text {
+    margin: .5em;
+}
+.gallery-caption, .wp-caption {
+
+}
+dd.wp-caption-text {
+    padding: 0px 10px 5px;
+}
+.wp-smiley {
+    margin: 0;
+}
+
+/* Gallery */
+.entry-content .tiled-gallery {
+	margin-bottom: 2em;
+}
+.entry-content .gallery {
+    margin:0 auto 1.625em;
+}
+#primary .entry-content .gallery a img {
+    border:none;
+}
+.entry-content .gallery .gallery-icon {
+    margin: 2px 8px;
+}
+.entry-content #gallery-1 .gallery-item {
+    margin-top: 0;
+}
+#image-navigation {
+    width: 100%;
+    float:left;
+}
+#image-navigation .previous-image {
+    float:left;
+}
+#image-navigation .next-image {
+    float:right;
+}
+.gallery img {
+    border: none;
+}
+
+/* Video */
+/*
+object, embed, video {
+    max-width: 100%;
+    height: auto;
+}
+*/
+
+/* Audio */
+audio {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* 10. Forms
+-------------------------------------------------------------- */
+#searchform label {
+    display: none;
+}
+#searchform input#s {
+    width: 80%;
+    max-width: 220px;
+    font-size: 1em;
+    padding: 4px 20px 4px 4px;
+    margin: 0;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+#searchform input[type="submit"] {
+    display: none;
+}
+input[type=text],
+input#s {
+    margin: 0 1em 0 0;
+    width: 60%;
+    padding: 5px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+}
+textarea {
+    width: 80%;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+}
+.error404 article .entry-content, .search article .entry-content {
+    margin: 2em 0;
+}
+
+
+/* 11. Comments
+-------------------------------------------------------------- */
+#comments-title {
+    padding: 8px 4px;
+    text-transform: uppercase;
+    font-size: .9em;
+}
+article.comment {
+    display:block;
+}
+#respond input[type=text] {
+    display:block;
+    width:40%;
+}
+#respond textarea {
+    display:block;
+    margin:0 0 1em;
+    width:60%;
+}
+#respond .form-allowed-tags {
+    clear:both;
+    width:60%;
+}
+#respond .form-allowed-tags {
+    display:none;
+}
+.commentlist {
+    margin: 0;
+    list-style-type:none;
+}
+.commentlist li {
+    position: relative;
+}
+.comment {
+    max-width: 100%;
+    overflow: hidden;
+    display: block;
+}
+article.comment {
+    margin:20px 0 0;
+    padding-bottom: 20px;
+}
+.comment header {
+    font-size: 1.2em;
+}
+.comment footer {
+    float:left;
+    width: 75%;
+    font-size: .7em;
+}
+.comment .reply {
+    float: right;
+    font-size: .9em;
+    width: 25%;
+    text-align: right;
+}
+.commentmetadata {
+    text-transform: uppercase;
+}
+.pinglist {
+    margin:20px 0 40px 52px;
+    list-style-type:decimal;
+}
+#commentform {
+    margin-top:20px;
+}
+.children {
+    list-style-type:none;
+    margin-left:55px;
+}
+#primary .commentlist ul {
+    margin-bottom: 0;
+}
+.comment .avatar {
+    float:left;
+    margin:0 1em .5em 0;
+}
+.comment-author {
+    display:inline;
+    margin-right:5px;
+}
+.comment-author cite {
+    font-weight: bold;
+}
+.comment-meta {
+    display: block;
+    font-size: 11px;
+}
+.comment-content {
+	clear: both;
+}
+.comment-body {
+    margin:0 0 30px 55px;
+}
+.comment-reply-link {
+    font-size: .8em;
+    padding: 3px;
+    text-transform: uppercase;
+}
+#cancel-comment-reply-link {
+    color: red;
+}
+#respond {
+    padding-bottom:35px;
+}
+#respond h3 {
+    font-size:14px;
+    font-weight:bold;
+}
+.nocomments {
+    text-align:center;
+    padding:20px;
+}
+.comment-body ul {
+    list-style-type:disc;
+}
+.comment-body ol {
+    list-style-type:decimal;
+}
+#commentform label small {
+    font-size:12px;
+}
+.comment-author-admin article {
+    padding: 1em;
+}
+.comment-author-admin footer {
+    left: 1em;
+}
+
+
+/* 12. Tables
+-------------------------------------------------------------- */
+table {
+    margin-bottom: 1.5em;
+    width: 100%;
+    max-width: 100%;
+}
+thead tr:last-of-type th {
+    /* Thicker border on the table-headers of the last row in the table head */
+    border-bottom-width: 2px;
+}
+th:empty {
+    /* Hide the borders on any empty table-headers */
+    border: none;
+}
+th, td {
+    vertical-align: top;
+    padding: 0.75em;
+}
+th {
+    font-weight: bold;
+    text-align: center;
+}
+table [colspan] {
+    /* This looks lovely, trust me... */
+    text-align: center;
+}
+table [rowspan] {
+    /* ...as does this. */
+    vertical-align: middle;
+}
+[colspan="1"] {
+    text-align: left;
+}
+[rowspan="1"] {
+    vertical-align: top;
+}
+tfoot {
+    text-align: center;
+}
+tfoot td {
+    border-top-width: 2px;
+}
+#wp-calendar {
+    font-size: .8em;
+}
+#wp-calendar th, #wp-calendar td {
+    text-align: center;
+    padding: .25em;
+}
+#wp-calendar th {
+    border-bottom: none;
+}
+#wp-calendar tfoot td {
+    border-top: none;
+}
+
+
+/* 13. Sidebar & Widgets
+-------------------------------------------------------------- */
+#sidebar-logo {
+    padding-left: 06.451612903226%;
+}
+#primary ol,
+#primary ul {
+    margin-bottom: 1.5em;
+}
+aside.widget {
+    display: block;
+    font-size: .8em;
+    font-weight: 200;
+    letter-spacing: 1px;
+    word-wrap: break-word;
+}
+.widget img {
+    max-width: 100%;
+    height: auto;
+}
+#colophon aside.widget {
+    padding-bottom: 2em;
+}
+.widget-area .widget_search {
+    overflow: hidden;
+}
+.widget-area .widget_search input {
+    float: left;
+}
+aside.widget ul,
+aside.widget ol {
+    list-style: none;
+}
+
+
+/* 14. Footer
+-------------------------------------------------------------- */
+#colophon {
+    padding: 2em 0 1em;
+    margin-bottom: 0;
+}
+.one div.widget {
+    width: 100%;
+    float: none;
+}
+.two div.widget {
+    width: 48%;
+    float: left;
+    margin-right: 4%;
+}
+.two div#widget-2, .two div#widget-3 {
+	margin-right: 0;
+}
+.three div.widget {
+    width: 31%;
+    float: left;
+    margin-right: 3.33%;
+}
+.three div#widget-3 {
+	margin-right: 0;
+}
+#site-generator {
+    clear: both;
+    padding-top: 2em;
+    font-size: 11px;
+    font-weight: 200;
+    letter-spacing: 1px;
+    margin-bottom: 2em;
+    text-align: center;
+}
+#site-generator .sep {
+    font-size: .7em;
+}
+/* Footer Widgets */
+#footer-widgets {
+    margin-bottom: 2em;
+    overflow: hidden;
+}
+#footer-widgets ul {
+    list-style: none;
+}
+
+/* 15. Buttons
+-------------------------------------------------------------- */
+#primary nav {
+    clear: both;
+}
+#comment-nav-above {
+    margin-top: 15px;
+}
+#primary nav .nav-previous a,
+#primary nav .nav-next a,
+input[type="button"],
+input[type="submit"],
+.button,
+.previous-image a,
+.next-image a {
+    position: relative;
+    overflow: visible;
+    display: inline-block;
+    padding: 0.5em 1em;
+    margin: 0;
+    text-decoration: none;
+    text-align: center;
+    font-size: 11px;
+    line-height: normal;
+    cursor: pointer;
+    outline: none;
+    -moz-background-clip: padding; /* for Firefox 3.6 */
+    background-clip: padding-box;
+    border-radius: 0.2em;
+    /* IE hacks */
+    zoom: 1;
+    *display: inline;
+    width: auto;
+}
+.button:hover,
+#primary nav .nav-previous:hover,
+#primary nav .nav-next:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+.button:focus,
+#primary nav .nav-previous:focus,
+#primary nav .nav-next:focus,
+input[type="button"]:focus,
+input[type="submit"]:focus,
+.button:active,
+#primary nav .nav-previous:active,
+#primary nav .nav-next:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+.button.active {
+    text-decoration: none;
+}
+#primary nav .nav-previous a:hover,
+#primary nav .nav-next a:hover,
+.previous-image a:hover,
+.next-image a:hover,
+input[type="submit"]:hover {
+    text-decoration: none;
+}
+
+/* 16. Messages
+-------------------------------------------------------------- */
+.message {
+    font-weight: normal;
+    display: block;
+    padding: 10px 10px 10px 36px;
+    margin: 0 0 1.5em 0;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+/* With multiple errors it’s nice to group them. */
+ul.message {
+    list-style: decimal outside;
+    padding: 10px 10px 10px 56px;
+}
+
+/* 17. Clear Floats
+-------------------------------------------------------------- */
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+* html .clearfix {
+    zoom: 1;
+} /* IE6 */
+*:first-child+html .clearfix {
+    zoom: 1;
+} /* IE7 */
+
+/* 18. Icons
+-------------------------------------------------------------- */
+.icon {
+    float: left;
+}
+.comment-bubble {
+    position: relative;
+}
+.comment-bubble:after {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: transparent transparent transparent #999;
+    border-style: solid;
+    border-width: 4px;
+    content: "";
+    display: block;
+    left: -13px;
+    position: absolute;
+    top: 7px;
+    width: 0;
+    z-index: 1;
+}
+.comment-bubble:before {
+    background: #999;
+    border-radius: 3px 3px 3px 3px;
+    content: "";
+    height: 9px;
+    left: -18px;
+    position: absolute;
+    top: 2px;
+    width: 12px;
+    z-index: 2;
+}
+.comment-bubble:hover:before {
+    background: #aaa;
+}
+.comment-bubble:hover:after {
+    border-color: transparent transparent transparent #aaa;
+}
+
+/* 19. WordPress.com specific styles
+-------------------------------------------------------------- */
+.slideshow-window {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -khtml-border-radius: 0;
+}
+#wpstats { /* WordPress.com Stats Smiley */
+    display: block;
+    margin: 0 auto 25px;
+}
+
+/* 20. Responsiveness: Tablets held in portrait orientation
+-------------------------------------------------------------- */
+@media screen and (max-width: 768px) {
+    body {
+        background: none;
+    }
+
+    #branding {
+        width: 100%;
+        float: none;
+        text-align: center;
+        max-width: 100%;
+        padding-top: 4em;
+        margin: 0;
+    }
+
+    .has-header-image #branding {
+        padding-top: 2em;
+    }
+
+    hgroup {
+        margin-left: 0;
+        padding: 0;
+        background: transparent;
+    }
+
+    #access .menu a, .widget .menu a {
+        padding-right: 0;
+    }
+
+    #branding hgroup, #access {
+        border: none;
+    }
+
+    #site-title a,
+    #site-title a img {
+        max-width: 250px;
+        margin: 0 auto 1em;
+    }
+
+    #site-description {
+        margin: 0 auto 1em;
+    }
+
+    #site-intro {
+        width: 100%;
+        text-align: center;
+        font-size: 2em;
+        display: block;
+    }
+
+    #controls {
+        margin: 1em 0;
+    }
+
+    #primary,
+    #secondary {
+        clear: both;
+        display: block;
+        float: none;
+        width: 100%;
+        background: transparent;
+    }
+
+    #colophon {
+        padding-top: 0em;
+    }
+
+    #primary-wrap {
+        width: 98%;
+    }
+
+    #colophon {
+        border-top: 0;
+    }
+
+    #secondary .widget:last-child {
+        border-bottom: 0;
+    }
+
+    #secondary .widget-area,
+    #colophon .widget-area {
+        margin-top: 2em;
+    }
+
+    #secondary .widget,
+    #colophon .widget {
+        padding-bottom: 1em;
+        text-align: center;
+    }
+
+    #colophon .widget .textwidget {
+        text-align: left;
+    }
+
+    #secondary .widget {
+        width: 100%;
+        clear: both;
+        margin: 1em auto;
+        padding-bottom: 3em;
+    }
+
+    #secondary #searchform {
+        margin: 0 auto;
+        width: 50%;
+    }
+
+    #access li {
+        clear: left;
+        float: none;
+        text-align: center;
+        width: 100%;
+        border: 0;
+    }
+
+    #access li a {
+        padding: .5em 0;
+    }
+
+    #access ul ul {
+        float: none;
+        left: 37%;
+        top: 3.1em;
+    }
+
+    #access ul ul, #access ul ul ul, .widget .menu ul, .widget .menu ul ul {
+        padding: 0;
+    }
+
+    #access ul ul li a {
+        border: none;
+    }
+
+    .entry-meta .left { 
+        width: 50%; 
+    }
+
+    #colophon div.widget {
+        width: 100%;
+        float: none;
+        margin: 1em auto 0;
+    }
+
+    .list .vertical .portfolio, .list .horizontal .portfolio, .list .square .portfolio {
+        width: 100%;
+    }
+
+    .list .portfolio .entry-text, .vertical .list .portfolio .entry-text  {
+        float: none;
+        width: 100%;
+    }
+
+    .list .portfolio .thumb {
+        margin: 0 1.5em 1em 0;
+    }
+}
+
+
+/* 21. Responsiveness: Mobile
+-------------------------------------------------------------- */
+@media screen and (max-width: 520px) {
+    body {
+        font-size: 0.9em;
+    }
+
+    small,
+    .entry-meta,
+    .wp-caption .wp-caption-text,
+    .gallery-caption {
+        font-size: 0.85em;
+    }
+
+    .portfolios article.portfolio.last {
+    	margin-right: auto;
+    }
+
+    .vertical .grid .portfolio {
+        max-width: 248px;
+    }
+
+    .square .grid .portfolio, .horizontal .grid  .portfolio {
+        max-width: 384px;
+    }
+
+    .portfolio .entry-header,
+    .portfolio footer.entry-meta {
+        margin: 0 auto;
+        text-align: center;
+        float: none;
+        font-size: 1em;
+    }
+
+    .portfolio {
+    	display: block;
+    	width: 100% !important;
+    	float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .portfolio .entry-header, .portfolio .entry-meta .right, .portfolios.list article .entry-meta {
+        text-align: center;
+    }
+
+    .list .portfolio .thumb, .list .portfolio .thumb img.wp-post-image {
+        clear: both;
+        display: block;
+        float: none;
+        margin: 0 auto 2em;
+    }
+    
+    .entry-meta .left,
+    .entry-meta .right,
+    .entry-meta .comments-link {
+        float: none;
+        width: 100%;
+        clear: both;
+    }
+}
+
+
+/* 23. Infinite Scroll
+-------------------------------------------------------------- */
+/**
+ * Globally hidden elements when IS is supported and in use.
+ */
+.infinite-scroll #nav-below, /* Older / Newer Posts Navigation (always hidden) */
+.infinite-scroll.neverending #colophon { /* Theme Footer (when set to scrolling) */
+	display: none;
+}
+
+/**
+ * When IS has reached its end we need to re-display elements that were hidden (via .neverending) before
+ */
+.infinity-end.neverending #colophon {
+	display: block;
+}
+
+/**
+ * Global style tweaks when IS is supported and in use
+ */
+.infinite-scroll .infinite-wrap, /* Each IS loop content wrapper (multiple instances) */
+.infinite-scroll .infinite-loader, /* Each IS loading spinner (multiple instances) */
+.infinite-scroll #infinite-handle /* The Load more posts button */ {
+	clear: both;
+}
+.infinite-scroll .infinite-wrap {
+	border-top: none;
+	padding: 0;
+}
+.infinite-scroll #infinite-footer .container { /* IS border */
+	border-color: #ddd;
+}
+
+/**
+ * Make sure that clicking Load more posts doesn't cause any jarringness.
+ */
+.infinite-scroll #infinite-handle {
+	float: left;
+	height: 56px;
+}
+.infinite-scroll #infinite-handle span {
+	display: block;
+}
+.infinite-scroll .infinite-loader {
+	margin: 0 0 28px;
+}
