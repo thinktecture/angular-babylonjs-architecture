@@ -43,9 +43,10 @@ export class Bulb extends SlotTransformNode {
         bulb.parent = this;
         cone.position.y += 0.7;
 
-        MeshBuilder.CreateLines(this.name + 'Line', {
-            points: [this.position, this.position.add(new Vector3(0, 5, 0).scale(SCALE))],
+        const line = MeshBuilder.CreateLines(this.name + 'Line', {
+            points: [Vector3.Zero(), Vector3.Up().scale(SCALE * SCALE)],
             colors: [Color4.FromColor3(Color3.Gray()), Color4.FromColor3(Color3.Gray())],
         });
+        line.parent = this;
     }
 }
