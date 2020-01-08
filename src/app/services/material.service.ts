@@ -32,6 +32,24 @@ export class MaterialService {
         return this.materials.box;
     }
 
+    deActiveBoxMaterial(): void {
+        this.getBoxMaterial().alpha = 0.5;
+    }
+
+    activeBoxMaterial(): void {
+        this.getBoxMaterial().alpha = 1;
+    }
+
+    getBoxActiveMaterial(): Material {
+        if (!this.materials.boxActive) {
+            const mat = this.getBoxMaterial().clone('matBoxActive');
+            mat.alpha = 1;
+            this.materials.boxActive = mat;
+        }
+
+        return this.materials.boxActive;
+    }
+
     getGroundMaterial(): Material {
         if (!this.materials.ground) {
             const mat = new StandardMaterial('matGround', this.sceneContext.scene);
