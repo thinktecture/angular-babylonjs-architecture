@@ -21,8 +21,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     @ViewChild('rCanvas', { static: true })
     canvasRef: ElementRef<HTMLCanvasElement>;
 
-    private readonly numberOfBoxes = 4;
-    private readonly colsOfBoxes = 2;
+    private readonly numberOfBoxes = 5;
+    private readonly colsOfBoxes = 6;
     private readonly rowsOfBoxes = 4;
 
 

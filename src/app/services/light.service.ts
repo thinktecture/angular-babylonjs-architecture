@@ -11,7 +11,7 @@ export class LightService {
     readonly shadowGen: ShadowGenerator[] = [];
     // noinspection JSMismatchedCollectionQueryUpdate
     readonly pointLights: PointLight[] = [];
-
+    private readonly numberOfPointLights = 3;
     private readonly startPositionPointLights = new Vector3(0, 0, -20);
 
     addHemisphericLight(scene: Scene) {

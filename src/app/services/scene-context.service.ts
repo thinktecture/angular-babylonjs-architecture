@@ -1,6 +1,7 @@
 import {ElementRef, Injectable} from '@angular/core';
+import {Scene} from '@babylonjs/core';
 import '@babylonjs/inspector';
-import {BaseScene} from '../base/base-scene';
+import {CameraService} from './camera.service';
 import {EngineContext} from './engine-context.service';
 import {LightService} from './light.service';
 
@@ -10,14 +11,17 @@ import {LightService} from './light.service';
 })
 export class SceneContext {
 
-    scene: BaseScene;
+    scene: Scene;
 
-    constructor(private engineCtx: EngineContext, private readonly lightService: LightService) {
+    constructor(private engineCtx: EngineContext, private readonly lightService: LightService, private readonly camera: CameraService) {
     }
 
     createMyScene(canvas: ElementRef<HTMLCanvasElement>) {
         this.engineCtx.canvas = canvas;
-        this.scene = new BaseScene(this.engineCtx.engine, canvas.nativeElement, this.lightService);
+        this.scene = new Scene(this.engineCtx.engine);
+        this.camera.setup(this.scene, canvas.nativeElement);
+        this.lightService.addPointLights(this.scene);
+        this.lightService.addHemisphericLight(this.scene);
         this.scene.debugLayer.show({ overlay: true, embedMode: true });
     }
 
