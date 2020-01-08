@@ -7,12 +7,8 @@ import {SCALE} from '../constants';
 })
 export class LightService {
 
-    constructor() { }
-
     // noinspection JSMismatchedCollectionQueryUpdate
     readonly shadowGen: ShadowGenerator[] = [];
-
-    private readonly numberOfPointLights = 3;
     // noinspection JSMismatchedCollectionQueryUpdate
     readonly pointLights: PointLight[] = [];
 
@@ -40,6 +36,9 @@ export class LightService {
     }
 
     addShadowCaster(mesh: Mesh, descendents?: boolean) {
-        this.shadowGen.forEach(s => s.addShadowCaster(mesh, descendents));
+        this.shadowGen.filter(s => {
+            const distance = s.getLight().getAbsolutePosition().subtract(mesh.getAbsolutePosition()).length();
+            return distance < s.getLight().range;
+        }).forEach(s => s.addShadowCaster(mesh, descendents));
     }
 }
