@@ -1,12 +1,13 @@
-<form (submit)="search(searchInput.value)">
-    <mat-form-field>
-        <input matInput placeholder="Item #123..." autocomplete="false" #searchInput>
-    </mat-form-field>&nbsp;
-
-</form>
+<mat-form-field>
+    <input matInput placeholder="Item #123..." autocomplete="false" #searchInput>
+</mat-form-field>&nbsp;
 <button mat-raised-button (click)="search(searchInput.value)">
     <mat-icon>search</mat-icon>
 </button>&nbsp;
-<button mat-raised-button (click)="clear()">
+<button *ngIf="activeSlot" mat-raised-button (click)="clear()">
     <mat-icon>clear</mat-icon>
-</button>
+</button>&nbsp;
+<button *ngIf="activeSlot" mat-raised-button (click)="goto()">
+    <mat-icon>send</mat-icon>
+</button>&nbsp;
+<a *ngIf="showVR" mat-flat-button rel="ar" href="/assets/engine.usdz"><mat-icon>visibility</mat-icon></a>

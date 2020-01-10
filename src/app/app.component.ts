@@ -26,8 +26,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     private readonly rowsOfBoxes = 4;
 
 
-    constructor(private engine: EngineContext, private scene: SceneContext, private readonly slotFactory: SlotFactory,
-                private readonly lightService: LightService,
+    constructor(
+        private engine: EngineContext,
+        private scene: SceneContext,
+        private readonly slotFactory: SlotFactory,
+        private readonly lightService: LightService,
     ) {}
 
     ngAfterViewInit(): void {

@@ -1,4 +1,4 @@
-import {ElementRef, Injectable} from '@angular/core';
+import {ElementRef, Injectable, NgZone} from '@angular/core';
 import {Engine, Scene} from '@babylonjs/core';
 
 @Injectable({
@@ -7,6 +7,8 @@ import {Engine, Scene} from '@babylonjs/core';
 export class EngineContext {
 
     canvas: ElementRef<HTMLCanvasElement>;
+
+    constructor(private readonly ngZone: NgZone) {}
 
     // tslint:disable-next-line:variable-name
     private _engine: Engine;
@@ -20,14 +22,13 @@ export class EngineContext {
 
     start(scene: Scene) {
         this._engine.stopRenderLoop();
-        this._engine.runRenderLoop(() => scene.render());
-
-        window.addEventListener('resize', () => this._engine.resize());
+        this.ngZone.runOutsideAngular(() => this._engine.runRenderLoop(() => scene.render()));
+        this.ngZone.runOutsideAngular(() => window.addEventListener('resize', () => this._engine.resize()));
     }
 
     stop() {
         this._engine.stopRenderLoop();
         this._engine.dispose();
-        window.removeEventListener('resize', ev => {});
+        window.removeEventListener('resize', () => {});
     }
 }

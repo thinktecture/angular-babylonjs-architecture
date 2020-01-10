@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Camera, FreeCamera, Scene, Vector3, Viewport} from '@babylonjs/core';
+import {Camera, DeviceOrientationCamera, FreeCamera, Scene, Vector3, Viewport} from '@babylonjs/core';
 import {SCALE} from '../constants';
 
 @Injectable({
@@ -7,8 +7,13 @@ import {SCALE} from '../constants';
 })
 export class CameraService {
 
-    mainCamera: FreeCamera;
-    miniMap: FreeCamera;
+    // tslint:disable-next-line:variable-name
+    private _mainCamera: FreeCamera;
+    get mainCamera(): FreeCamera {
+        return this._mainCamera;
+    }
+    private miniMap: FreeCamera;
+    readonly startPosition = new Vector3(0, .55, -5).scale(SCALE);
 
     displayMiniMap(scene: Scene, target: Vector3) {
         if (!this.miniMap) {
@@ -19,11 +24,10 @@ export class CameraService {
             this.miniMap.orthoTop = 50;
             this.miniMap.orthoBottom = -50;
             this.miniMap.rotation.x = Math.PI / 2;
-            this.miniMap.viewport = new Viewport(0, 0, 0.2, 0.2);
+            this.miniMap.viewport = new Viewport(0.01, 0.01, 0.2, 0.2);
             scene.activeCameras.push(this.miniMap);
-            scene.cameraToUseForPointers = this.mainCamera;
+            scene.cameraToUseForPointers = this._mainCamera;
         }
-
     }
 
     hideMiniMap() {
@@ -33,12 +37,21 @@ export class CameraService {
         }
     }
 
-    setup(scene: Scene, canvas: HTMLCanvasElement) {
-        const start = new Vector3(0, .55, -5).scale(SCALE);
-        this.mainCamera = new FreeCamera('camera1', start, scene);
-        this.mainCamera.setTarget(start.add(Vector3.Forward()));
-        this.mainCamera.attachControl(canvas, true);
-        scene.activeCameras.push(this.mainCamera);
+    moveCameraAndLookAt(pos: Vector3) {
+        this._mainCamera.position = pos.add(Vector3.Right().scale(SCALE * 1.8));
+        this._mainCamera.setTarget(pos);
+    }
 
+    resetMainCamera() {
+        this._mainCamera.position = this.startPosition;
+        this._mainCamera.setTarget(this.startPosition.add(Vector3.Forward()));
+    }
+
+    setup(scene: Scene, canvas: HTMLCanvasElement) {
+        this._mainCamera = new DeviceOrientationCamera('camera1', this.startPosition, scene);
+        this.resetMainCamera();
+        this._mainCamera.attachControl(canvas, false);
+        this._mainCamera.inputs.addDeviceOrientation();
+        scene.activeCameras.push(this._mainCamera);
     }
 }

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Color4} from '@babylonjs/core';
+import {Color4, Material} from '@babylonjs/core';
 import {CameraService} from '../../services/camera.service';
+import {LightService} from '../../services/light.service';
 import {MaterialService} from '../../services/material.service';
 import {SceneContext} from '../../services/scene-context.service';
 import {SlotBox} from '../../slot/slot-box';
@@ -13,8 +14,14 @@ import {SlotBox} from '../../slot/slot-box';
 export class SearchComponent implements OnInit {
 
     activeSlot: SlotBox;
+    showVR = false;
+    private inactiveMaterial: Material;
 
-    constructor(private readonly scene: SceneContext, private readonly materialSerivce: MaterialService, private readonly camera: CameraService) { }
+    constructor(private readonly scene: SceneContext,
+                private readonly materialService: MaterialService,
+                private readonly camera: CameraService,
+                private readonly light: LightService,
+    ) { }
 
     ngOnInit() {
     }
@@ -22,14 +29,25 @@ export class SearchComponent implements OnInit {
     clear(all = true) {
         if (this.activeSlot) {
             this.activeSlot.getChildMeshes(true).forEach(mesh => {
-                mesh.material = this.materialSerivce.getBoxMaterial();
+                mesh.material = this.materialService.getBoxStandartMaterial(mesh.material);
                 mesh.disableEdgesRendering();
             });
+            this.activeSlot.removeDecal();
+            this.activeSlot = undefined;
         }
         if (all) {
-            this.materialSerivce.activeBoxMaterial();
+            this.materialService.activateBoxMaterials();
             this.camera.hideMiniMap();
+            this.camera.resetMainCamera();
         }
+        this.light.toggleHighlight(this.camera.mainCamera.position, true, this.scene.scene);
+        this.showVR = false;
+    }
+
+    goto() {
+        this.camera.moveCameraAndLookAt(this.activeSlot.getAbsolutePosition());
+        this.light.toggleHighlight(this.camera.mainCamera.position, true, this.scene.scene);
+        this.showVR = true;
     }
 
     search(term: string) {
@@ -43,10 +61,13 @@ export class SearchComponent implements OnInit {
         this.activeSlot.getChildMeshes()[0].edgesWidth = 10;
         this.activeSlot.getChildMeshes()[0].enableEdgesRendering(.9999);
 
-        this.materialSerivce.deActiveBoxMaterial();
-        this.activeSlot.getChildMeshes(true).forEach(mesh => mesh.material = this.materialSerivce.getBoxActiveMaterial());
-
+        this.materialService.deactivateBoxMaterials();
+        this.activeSlot.getChildMeshes(true).forEach(mesh => {
+            this.inactiveMaterial = mesh.material;
+            mesh.material = this.materialService.getBoxActiveMaterial(mesh.material);
+        });
         this.camera.displayMiniMap(this.scene.scene, this.activeSlot.position);
+        this.activeSlot.addDecal();
     }
 
 }

@@ -11,6 +11,7 @@ export class LightService {
     readonly shadowGen: ShadowGenerator[] = [];
     // noinspection JSMismatchedCollectionQueryUpdate
     readonly pointLights: PointLight[] = [];
+    private highLight: PointLight;
     private readonly numberOfPointLights = 3;
     private readonly startPositionPointLights = new Vector3(0, 0, -20);
 
@@ -40,5 +41,21 @@ export class LightService {
             const distance = s.getLight().getAbsolutePosition().subtract(mesh.getAbsolutePosition()).length();
             return distance < s.getLight().range;
         }).forEach(s => s.addShadowCaster(mesh, descendents));
+    }
+
+    toggleHighlight(position: Vector3, enable: boolean, scene: Scene) {
+        if (enable) {
+            if (!this.highLight) {
+                this.highLight = new PointLight('highlight', position, scene);
+                this.highLight.intensity = 1;
+                this.highLight.range = 4 * SCALE;
+            }
+            this.highLight.position = position;
+        } else {
+            if (this.highLight) {
+                this.highLight.dispose();
+                this.highLight = undefined;
+            }
+        }
     }
 }
