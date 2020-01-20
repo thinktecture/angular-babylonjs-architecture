@@ -41,11 +41,6 @@ export class MaterialService {
     }
 
     getBoxStandartMaterial(activeMaterial: Material): Material {
-        console.log('----------');
-        console.log(activeMaterial.name);
-        console.log(this.boxMaterials);
-        console.log(activeMaterial.name.substr(0, activeMaterial.name.indexOf(MATERIAL_POSTFIX + ACTIVE_MATERIAL_PREFIX)));
-        console.log(this.boxMaterials[activeMaterial.name]);
         return this.boxMaterials[activeMaterial.name.substr(0, activeMaterial.name.indexOf(MATERIAL_POSTFIX + ACTIVE_MATERIAL_PREFIX))];
     }
 

@@ -57,7 +57,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
                     x *= x < 0 ? c + 1 : c;
 
                     const boxDim = { ...dim, position: new Vector3(x, r * 2.2 + 1, n * 3).scale(5) };
-                    let box = this.slotFactory.create(SlotContainer, boxDim, 'Container' + '-' + r + n + c, SlotType.Box);
+                    let box = this.slotFactory.create(SlotContainer, boxDim, 'Container' + '-' + r + n + c, SlotType.Random);
                 }
             }
         }
