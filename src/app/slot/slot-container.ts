@@ -1,11 +1,35 @@
 import {Injectable} from '@angular/core';
-import {Vector3} from '@babylonjs/core';
+import {TransformNode, Vector3} from '@babylonjs/core';
 import {SlotBox} from './slot-box';
 import {Dimensions, SlotTransformNode, SlotType} from './slot-transform';
+import {SlotFactory} from '../services/slot-factory.service';
 
+
+export interface SlotContainerStack {
+    dimensions: Dimensions;
+     slotFactory: SlotFactory;
+    name: string;
+
+    createStack();
+}
+
+export function slotContainerStackBehavior(parent: SlotContainer) {
+    const stackDim = {
+        ...parent.dimensions,
+        height: parent.dimensions.height / 2 - 0.35,
+        position: new Vector3(0, -parent.dimensions.height / 2 / 2, 0),
+    };
+    parent.slotFactory.create(SlotBox, stackDim, parent.name + 'stack', SlotType.Box, parent);
+
+    parent.slotFactory.create(SlotBox, {
+        ...parent.dimensions,
+        height: parent.dimensions.height / 2,
+        position: new Vector3(0, +parent.dimensions.height / 2 / 2, 0),
+    }, parent.name + 'stack', SlotType.Box, parent).addLight();
+}
 
 @Injectable()
-export class SlotContainer extends SlotTransformNode {
+export class SlotContainer extends SlotTransformNode implements SlotContainerStack {
 
     init(dimensions: Dimensions, name: string, slotType: SlotType) {
         this.dimensions = dimensions;
@@ -39,54 +63,7 @@ export class SlotContainer extends SlotTransformNode {
         }
     }
 
-    private createStack() {
-        const spaceBetween = 0.1;
-        const maxSize = Math.floor(Math.random() * 4);
-
-        this.position.y = this.dimensions.position.y / maxSize;
-
-        // const maxSize = 4;
-        let nextPosition = Vector3.Zero();
-        for (let stackLevel = 0; stackLevel < maxSize; stackLevel++) {
-            const levelDim = {
-                ...this.dimensions,
-                height: this.dimensions.height / maxSize - spaceBetween,
-                position: nextPosition,
-                parentDimension: this.dimensions,
-            };
-            if (levelDim.height + nextPosition.y > this.dimensions.height) {
-                continue;
-            }
-            const box = this.slotFactory.create(SlotBox, levelDim, this.name + 'stack' + stackLevel, SlotType.Box, this);
-            box.position = nextPosition;
-            nextPosition = new Vector3(nextPosition.x, nextPosition.y + levelDim.height + spaceBetween, nextPosition.z);
-            // box.position.y -= 1 / maxSize * 10;
-        }
+    createStack() {
+        return slotContainerStackBehavior(this);
     }
-
-
-    private createColumn() {
-        console.log('CREATE COL');
-        const spaceBetween = 0.1;
-        const maxSize = Math.floor(Math.random() * 4);
-
-        // this.position.z = this.dimensions.position.z / maxSize;
-
-        let nextPosition = Vector3.Zero();
-        for (let column = 0; column < maxSize; column++) {
-            const levelDim = {
-                ...this.dimensions,
-                depth: this.dimensions.depth / maxSize - spaceBetween,
-                position: nextPosition,
-                parentDimension: this.dimensions,
-            };
-            if (levelDim.depth + nextPosition.z > this.dimensions.depth) {
-                continue;
-            }
-            const box = this.slotFactory.create(SlotBox, levelDim, this.name + 'column' + column, SlotType.Box, this);
-            box.position = nextPosition;
-            nextPosition = new Vector3(nextPosition.x, nextPosition.y, nextPosition.z + levelDim.depth + spaceBetween);
-        }
-    }
-
 }

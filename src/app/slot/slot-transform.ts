@@ -3,11 +3,11 @@ import {SceneContext} from '../services/scene-context.service';
 import {SlotFactory} from '../services/slot-factory.service';
 
 export abstract class SlotTransformNode extends TransformNode {
-    protected dimensions: Dimensions;
+    dimensions: Dimensions;
     protected slotType: SlotType;
 
-    constructor(protected readonly sceneContext: SceneContext,
-                protected readonly slotFactory: SlotFactory,
+    constructor(readonly sceneContext: SceneContext,
+                readonly slotFactory: SlotFactory,
                 parent?: TransformNode) {
         super('SlotTransformNode-' + Math.random(), sceneContext.scene);
         this.parent = parent;

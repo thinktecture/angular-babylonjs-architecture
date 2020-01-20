@@ -67,7 +67,7 @@ export class SearchComponent implements OnInit {
             mesh.material = this.materialService.getBoxActiveMaterial(mesh.material);
         });
         this.camera.displayMiniMap(this.scene.scene, this.activeSlot.position);
-        this.activeSlot.addDecal();
+        this.activeSlot.addDecal(this.activeSlot);
     }
 
 }

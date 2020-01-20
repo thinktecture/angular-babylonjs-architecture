@@ -6,18 +6,73 @@ import {SceneContext} from '../services/scene-context.service';
 import {SlotFactory} from '../services/slot-factory.service';
 import {Dimensions, SlotTransformNode, SlotType} from './slot-transform';
 
-@Injectable()
-export class SlotBox extends SlotTransformNode {
 
-    // noinspection JSMismatchedCollectionQueryUpdate
-    private readonly meshes: Mesh[] = [];
-    private decal: Mesh;
+export interface Lightable {
+    addLight();
+}
+
+export interface DecalSlot {
+    decal: Mesh;
+    dimensions: Dimensions;
+    meshes: Mesh[];
+    name: string;
+    removeDecal: () => void;
+    addDecal(parent: DecalSlot);
+}
+
+export function decalSlotBehavior(parent: DecalSlot) {
+    if (!parent.decal) {
+        parent.decal = Mesh.CreateDecal(
+            parent.name + 'decal',
+            parent.meshes[0],
+            parent.meshes[0].getAbsolutePosition().add(new Vector3(parent.dimensions.width / 2 + 0.01, 0, parent.dimensions.depth / 4)),
+            new Vector3(1, 0, 0),
+            new Vector3(3, 3, 3),
+            0);
+        parent.decal.material = this.materialService.getDecalMaterial();
+        // this.decal.parent = this;
+    }
+}
+export function removeDecalSlotBehavior(parent: SlotBox) {
+  parent.decal.dispose();
+  parent.decal = undefined;
+}
+
+export interface ContainerSlot {
+    fillSlot(meshes: SlotTransformNode);
+}
+
+export function fillSlotBehavior(parent: SlotBox) {
+    if (parent.meshes.length) {
+        parent.meshes.forEach(m => m.dispose());
+        parent.meshes.length = 0;
+    }
+
+    const box = BoxBuilder.CreateBox(parent.name + 'Mesh', { ...parent.dimensions }, parent.sceneContext.scene);
+    box.parent = this;
+    box.material = parent.materialService.getBoxMaterial(Math.random() > .5);
+    parent.lightService.addShadowCaster(box);
+    parent.meshes.push(box);
+}
+
+
+
+@Injectable()
+export class SlotBox extends SlotTransformNode implements DecalSlot, Lightable, ContainerSlot {
+
+    decal: Mesh;
+    readonly meshes: Mesh[] = [];
+
+    fillSlot = fillSlotBehavior;
+    addDecal = decalSlotBehavior;
+    removeDecal = () => removeDecalSlotBehavior(this);
+
 
     constructor(
         sceneContext: SceneContext,
         slotFactory: SlotFactory,
-        private readonly lightService: LightService,
-        private readonly materialService: MaterialService,
+        public readonly lightService: LightService,
+        public readonly materialService: MaterialService,
         parent: SlotTransformNode,
     ) {
         super(sceneContext, slotFactory);
@@ -28,15 +83,11 @@ export class SlotBox extends SlotTransformNode {
         this.dimensions = dimensions;
         this.name = name;
         this.slotType = type;
+        this.position = this.dimensions.position;
+        this.fillSlot(this);
+    }
 
-        if (this.slotType === SlotType.Box) {
-            const box = BoxBuilder.CreateBox(this.name + 'Mesh', { ...this.dimensions }, this.sceneContext.scene);
-            box.parent = this;
-            box.material = this.materialService.getBoxMaterial(Math.random() > .5);
-            this.lightService.addShadowCaster(box);
-            this.meshes.push(box);
-        }
-
+    addLight() {
         const light = MeshBuilder.CreateBox(this.name + 'Light1', { ...this.dimensions, height: .2, width: .2 });
         light.position.y = this.dimensions.height / 2 - 0.5;
         light.position.x = this.dimensions.width / 2 + 0.5;
@@ -45,26 +96,5 @@ export class SlotBox extends SlotTransformNode {
 
         const light2 = light.clone(this.name + 'light2');
         light2.position.x = light.position.x * -1;
-    }
-
-    addDecal() {
-        if (!this.decal) {
-            this.decal = Mesh.CreateDecal(
-                this.name + 'decal',
-                this.meshes[0],
-                this.meshes[0].getAbsolutePosition().add(new Vector3(this.dimensions.width / 2 + 0.01, 2.5, 2.5)),
-                new Vector3(1, 0, 0),
-                new Vector3(3, 3, 3),
-                0);
-            this.decal.material = this.materialService.getDecalMaterial();
-            // this.decal.parent = this;
-        }
-    }
-
-    removeDecal() {
-        if (this.decal) {
-            this.decal.dispose();
-            this.decal = undefined;
-        }
     }
 }
