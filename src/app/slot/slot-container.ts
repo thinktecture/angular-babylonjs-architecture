@@ -14,7 +14,7 @@ export class SlotContainer extends SlotTransformNode {
         this.slotType = slotType;
 
         if (this.slotType === SlotType.Random) {
-            const typeNum = Math.floor(Math.random() * 3);
+            const typeNum = Math.floor(Math.random() * 2);
             switch (typeNum) {
                 case 0:
                     this.slotType = SlotType.Box;
@@ -22,21 +22,19 @@ export class SlotContainer extends SlotTransformNode {
                 case 1:
                     this.slotType = SlotType.Stack;
                     break;
-                case 2:
-                    this.slotType = SlotType.Column;
-                    break;
             }
         }
 
         switch (this.slotType) {
             case SlotType.Box:
-                const box = this.slotFactory.create(SlotBox, this.dimensions, this.name + 'Box', SlotType.Box, this);
+                this.slotFactory.create(
+                    SlotBox,
+                    { ...this.dimensions, position: Vector3.Zero() },
+                    this.name + 'Box', SlotType.Box, this,
+                ).addLight();
                 break;
             case SlotType.Stack:
                 this.createStack();
-                break;
-            case SlotType.Column:
-                this.createColumn();
                 break;
         }
     }
