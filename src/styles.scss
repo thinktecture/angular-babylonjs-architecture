@@ -1,18 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
-html, body {
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+
+html,
+body {
     padding: 0;
     margin: 0;
     height: 100%;
 }
-canvas {
 
+canvas {
     height: 100%;
     width: 100%;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: #1e1f26;
+}
 
 #interface {
     position: absolute;
@@ -24,4 +34,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     bottom: 2rem;
     right: 2rem;
     position: absolute;
+}
+
+// for the sake of simplicity... important ;)
+input {
+    color: white !important;
 }

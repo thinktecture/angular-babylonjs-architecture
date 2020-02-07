@@ -1,11 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Color3, Color4, Light, Mesh, MeshBuilder, Vector3} from '@babylonjs/core';
+import {Color3, Color4, MeshBuilder, Vector3} from '@babylonjs/core';
 import {SCALE} from '../constants';
-import {LightService} from '../services/light.service';
+import {LightContext} from '../services/light.context';
 import {MaterialService} from '../services/material.service';
-import {SceneContext} from '../services/scene-context.service';
-import {SlotFactory} from '../services/slot-factory.service';
-import {Dimensions, SlotTransformNode, SlotType} from '../slot/slot-transform';
+import {SceneContext} from '../services/scene.context';
+import {SlotFactory} from '../services/slot.factory';
+import {SlotTransformNode} from '../slots/transform-node.slot';
+import {Dimensions} from './dimensions.model';
+import {SlotType} from './slot-type.model';
 
 @Injectable({
     providedIn: 'root',
@@ -15,7 +17,7 @@ export class Bulb extends SlotTransformNode {
     constructor(
         sceneContext: SceneContext,
         slotFactory: SlotFactory,
-        private readonly lightService: LightService,
+        private readonly lightService: LightContext,
         private readonly materialService: MaterialService,
         parent?: SlotTransformNode,
     ) {

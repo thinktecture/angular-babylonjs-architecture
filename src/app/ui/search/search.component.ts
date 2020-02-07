@@ -1,73 +1,59 @@
-import {Component, OnInit} from '@angular/core';
-import {Color4, Material} from '@babylonjs/core';
-import {CameraService} from '../../services/camera.service';
-import {LightService} from '../../services/light.service';
+import {AfterContentChecked, Component, OnDestroy} from '@angular/core';
+import {Material} from '@babylonjs/core';
+import {CameraContext} from '../../services/camera.context';
 import {MaterialService} from '../../services/material.service';
-import {SceneContext} from '../../services/scene-context.service';
-import {SlotBox} from '../../slot/slot-box';
+import {SearchContext} from '../../services/search.context';
+import {SceneContext} from '../../services/scene.context';
+import {BoxSlot} from '../../slots/box.slot';
+import {filter, takeUntil} from 'rxjs/operators';
+import {BehaviorSubject, Subject} from 'rxjs';
 
 @Component({
     selector: 'app-search',
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements AfterContentChecked, OnDestroy {
 
-    activeSlot: SlotBox;
-    showVR = false;
-    private inactiveMaterial: Material;
+    options$ = new BehaviorSubject<string[]>([]);
+    private destroy = new Subject<boolean>();
 
     constructor(private readonly scene: SceneContext,
                 private readonly materialService: MaterialService,
-                private readonly camera: CameraService,
-                private readonly light: LightService,
-    ) { }
+                private readonly camera: CameraContext,
+                public readonly searchContext: SearchContext,
+    ) {
+    }
 
-    ngOnInit() {
+    ngAfterContentChecked() {
+        this.scene.sceneCreated$.pipe(takeUntil(this.destroy), filter(x => !!x))
+            .subscribe(scene => scene.onNewTransformNodeAddedObservable.add(() => {
+                this.options$.next(this.scene.scene.transformNodes.filter(node => node instanceof BoxSlot).map((box: BoxSlot) => box.information));
+            }));
+    }
+
+    ngOnDestroy() {
+        this.destroy.next(true);
     }
 
     clear(all = true) {
-        if (this.activeSlot) {
-            this.activeSlot.getChildMeshes(true).forEach(mesh => {
-                mesh.material = this.materialService.getBoxStandartMaterial(mesh.material);
-                mesh.disableEdgesRendering();
-            });
-            this.activeSlot.removeDecal();
-            this.activeSlot = undefined;
-        }
         if (all) {
             this.materialService.activateBoxMaterials();
-            this.camera.hideMiniMap();
-            this.camera.resetMainCamera();
         }
-        this.light.toggleHighlight(this.camera.mainCamera.position, true, this.scene.scene);
-        this.showVR = false;
+        this.searchContext.clear(all);
     }
 
     goto() {
-        this.camera.moveCameraAndLookAt(this.activeSlot.getAbsolutePosition());
-        this.light.toggleHighlight(this.camera.mainCamera.position, true, this.scene.scene);
-        this.showVR = true;
+        this.searchContext.goto();
     }
 
     search(term: string) {
-
+        if (!term || !term.length) {
+            return;
+        }
         this.clear(false);
-        console.log('SEARCH', term);
-        const slots = this.scene.scene.transformNodes.filter(node => node instanceof SlotBox);
-        const foundIdx = Math.floor(Math.random() * slots.length);
-        this.activeSlot = slots[foundIdx] as SlotBox;
-        this.activeSlot.getChildMeshes()[0].edgesColor = new Color4(0, 0, 1, 1);
-        this.activeSlot.getChildMeshes()[0].edgesWidth = 10;
-        this.activeSlot.getChildMeshes()[0].enableEdgesRendering(.9999);
-
-        this.materialService.deactivateBoxMaterials();
-        this.activeSlot.getChildMeshes(true).forEach(mesh => {
-            this.inactiveMaterial = mesh.material;
-            mesh.material = this.materialService.getBoxActiveMaterial(mesh.material);
-        });
-        this.camera.displayMiniMap(this.scene.scene, this.activeSlot.position);
-        this.activeSlot.addDecal(this.activeSlot);
+        const activeSlot = this.searchContext.findSlot(term, BoxSlot);
+        this.camera.displayMiniMap(this.scene.scene, activeSlot.position);
     }
 
 }

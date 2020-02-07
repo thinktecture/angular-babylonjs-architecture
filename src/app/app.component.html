@@ -1,4 +1,18 @@
+<button id="startbutton" *ngIf="!started" mat-raised-button color="warn" (click)="start()">START</button>
 <canvas #rCanvas id="rCanvas" touch-action="none"></canvas>
+
+<!-- add html canvas with reference. A place where BabylonJS can render it's content -->
+
 <div id="interface">
     <app-search></app-search>
+    <div id="controls">
+
+        <button mat-flat-button (click)="requestOrientation()">
+            <mat-icon *ngIf="!orientationCam">screen_rotation</mat-icon>
+            <mat-icon *ngIf="orientationCam">developer_mode</mat-icon>
+        </button>&nbsp;
+        <button mat-flat-button (click)="debug()">
+            <mat-icon>bug_report</mat-icon>
+        </button>
+    </div>
 </div>
