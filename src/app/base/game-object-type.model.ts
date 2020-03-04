@@ -1,4 +1,4 @@
-export enum SlotType {
+export enum GameObjectType {
     Box,
     Stack,
     Column,

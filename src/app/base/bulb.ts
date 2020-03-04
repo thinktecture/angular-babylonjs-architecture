@@ -4,27 +4,27 @@ import {SCALE} from '../constants';
 import {LightContext} from '../services/light.context';
 import {MaterialService} from '../services/material.service';
 import {SceneContext} from '../services/scene.context';
-import {SlotFactory} from '../services/slot.factory';
-import {SlotTransformNode} from '../slots/transform-node.slot';
+import {GameObjectFactory} from '../services/game-object.factory';
+import {TransformNodeGameObject} from '../game-objects/transform-node.game-object';
 import {Dimensions} from './dimensions.model';
-import {SlotType} from './slot-type.model';
+import {GameObjectType} from './game-object-type.model';
 
 @Injectable({
     providedIn: 'root',
 })
-export class Bulb extends SlotTransformNode {
+export class Bulb extends TransformNodeGameObject {
 
     constructor(
         sceneContext: SceneContext,
-        slotFactory: SlotFactory,
+        gameObjectFactory: GameObjectFactory,
         private readonly lightService: LightContext,
         private readonly materialService: MaterialService,
-        parent?: SlotTransformNode,
+        parent?: TransformNodeGameObject,
     ) {
-        super(sceneContext, slotFactory);
+        super(sceneContext, gameObjectFactory);
     }
 
-    init(dimensions: Dimensions, name: string, type: SlotType) {
+    init(dimensions: Dimensions, name: string, type: GameObjectType) {
         this.name = name;
         this.position = dimensions.position;
 
@@ -40,7 +40,7 @@ export class Bulb extends SlotTransformNode {
             diameter: .7,
             segments: 5,
         }, this.sceneContext.scene);
-        ;
+
         bulb.material = this.materialService.getBulbTexture();
         bulb.parent = this;
         cone.position.y += 0.7;

@@ -6,10 +6,10 @@ import {SCALE} from './constants';
 import {EngineContext} from './services/engine.context';
 import {LightContext} from './services/light.context';
 import {SceneContext} from './services/scene.context';
-import {SlotFactory} from './services/slot.factory';
-import {ContainerSlot} from './slots/container.slot';
+import {GameObjectFactory} from './services/game-object.factory';
+import {ContainerGameObject} from './game-objects/container.game-object';
 import {CameraContext} from './services/camera.context';
-import {SlotType} from './base/slot-type.model';
+import {GameObjectType} from './base/game-object-type.model';
 
 @Component({
     selector: 'app-root',
@@ -36,7 +36,7 @@ export class AppComponent implements OnDestroy {
         private readonly engine: EngineContext,
         private readonly scene: SceneContext,
         private readonly camera: CameraContext,
-        private readonly slotFactory: SlotFactory,
+        private readonly gameObjectFacatory: GameObjectFactory,
         private readonly lightService: LightContext,
     ) {
     }
@@ -58,11 +58,11 @@ export class AppComponent implements OnDestroy {
         );
 
         // create floor
-        this.slotFactory.create(
+        this.gameObjectFacatory.create(
             Ground,
             {width: 100 * SCALE, height: 50 * SCALE},
             'Ground',
-            SlotType.Ground,
+            GameObjectType.Ground,
         );
 
         // create boxes
@@ -70,7 +70,7 @@ export class AppComponent implements OnDestroy {
 
         // add some mesh to represent lights
         this.lightService.pointLights.forEach(light =>
-            this.slotFactory.create(
+            this.gameObjectFacatory.create(
                 Bulb,
                 {
                     height: 1.5,
@@ -103,11 +103,11 @@ export class AppComponent implements OnDestroy {
                         ...dim,
                         position: new Vector3(x, r * 2.2 + 1, n * 3).scale(5),
                     };
-                    let box = this.slotFactory.create(
-                        ContainerSlot,
+                    let box = this.gameObjectFacatory.create(
+                        ContainerGameObject,
                         boxDim,
                         'Container' + '-' + r + c + n,
-                        SlotType.Random,
+                        GameObjectType.Random,
                     );
                 }
             }

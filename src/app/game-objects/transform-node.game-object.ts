@@ -1,22 +1,22 @@
 import {TransformNode} from '@babylonjs/core';
 import {SceneContext} from '../services/scene.context';
-import {SlotFactory} from '../services/slot.factory';
+import {GameObjectFactory} from '../services/game-object.factory';
 import {Dimensions} from '../base/dimensions.model';
-import {SlotType} from '../base/game-object-type.model';
+import {GameObjectType} from '../base/game-object-type.model';
 
-export abstract class SlotTransformNode extends TransformNode {
+export abstract class TransformNodeGameObject extends TransformNode {
     dimensions: Dimensions;
     public information: string;
-    protected slotType: SlotType;
+    protected gameObjectType: GameObjectType;
 
     constructor(readonly sceneContext: SceneContext,
-                readonly slotFactory: SlotFactory,
+                readonly gameObjectFactory: GameObjectFactory,
                 parent?: TransformNode) {
         super(Math.floor(Math.random() * 10000) + '', sceneContext.scene);
         this.parent = parent;
     }
 
-    abstract init(dimensions: Dimensions, name: string, type: SlotType);
+    abstract init(dimensions: Dimensions, name: string, type: GameObjectType);
 }
 
 

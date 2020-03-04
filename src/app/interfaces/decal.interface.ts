@@ -1,20 +1,20 @@
 import {Mesh, Vector3} from '@babylonjs/core';
-import {SlotTransformNode} from '../slots/transform-node.slot';
+import {TransformNodeGameObject} from '../game-objects/transform-node.game-object';
 
-export interface DecalSlot {
+export interface DecalGameObject {
     decal: Mesh;
     meshes?: Mesh[]; // TODO cut better interfaces
     removeDecal: () => void;
 
-    addDecal(parent: SlotTransformNode);
+    addDecal(parent: TransformNodeGameObject);
 }
 
-export function isDecalSlot(toCheck: any): toCheck is DecalSlot {
+export function isDecalGameObject(toCheck: any): toCheck is DecalGameObject {
     return toCheck.removeDecal && toCheck.addDecal;
 }
 
-export function decalSlotBehavior(parent: SlotTransformNode) {
-    if (isDecalSlot(parent) && !parent.decal) {
+export function addDecalbehavior(parent: TransformNodeGameObject) {
+    if (isDecalGameObject(parent) && !parent.decal) {
         parent.decal = Mesh.CreateDecal(
             parent.name + 'decal',
             parent.meshes[0],
@@ -26,8 +26,8 @@ export function decalSlotBehavior(parent: SlotTransformNode) {
     }
 }
 
-export function removeDecalSlotBehavior(parent: SlotTransformNode) {
-    if (isDecalSlot(parent)) {
+export function removeDecalBehavior(parent: TransformNodeGameObject) {
+    if (isDecalGameObject(parent)) {
         parent.decal.dispose();
         parent.decal = undefined;
     }

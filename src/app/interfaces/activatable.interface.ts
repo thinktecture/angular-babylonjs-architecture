@@ -11,13 +11,13 @@ export function isActivatable(toTest: any): toTest is Activatable {
     return !!toTest.activate;
 }
 
-export function activateSlotBehavior(slot: Fillable & Activatable, activateSlot: boolean) {
-    if (!slot.meshes) {
+export function activateBehavior(gameObject: Fillable & Activatable, active: boolean) {
+    if (!gameObject.meshes) {
         return;
     }
 
-    if (activateSlot) {
-        slot.meshes.forEach(m => {
+    if (active) {
+        gameObject.meshes.forEach(m => {
             if (m.edgesRenderer) {
                 m.edgesRenderer.dispose();
             }
@@ -25,9 +25,9 @@ export function activateSlotBehavior(slot: Fillable & Activatable, activateSlot:
             m.edgesWidth = 10;
             m.enableEdgesRendering(.9999);
         });
-        slot.active = true;
+        gameObject.active = true;
     } else {
-        slot.meshes.forEach(m => m.disableEdgesRendering());
-        slot.active = false;
+        gameObject.meshes.forEach(m => m.disableEdgesRendering());
+        gameObject.active = false;
     }
 }

@@ -2,50 +2,50 @@ import {ActionManager, ExecuteCodeAction, Mesh, MeshBuilder} from '@babylonjs/co
 import {LightContext} from '../services/light.context';
 import {MaterialService} from '../services/material.service';
 import {SceneContext} from '../services/scene.context';
-import {SlotFactory} from '../services/slot.factory';
-import {SlotTransformNode} from './transform-node.slot';
+import {GameObjectFactory} from '../services/game-object.factory';
+import {TransformNodeGameObject} from './transform-node.game-object';
 import {SearchContext} from '../services/search.context';
-import {DecalSlot, decalSlotBehavior, removeDecalSlotBehavior} from '../interfaces/decal.interface';
-import {Fillable, fillSlotBehavior} from '../interfaces/fill-slot.interface';
+import {DecalGameObject, addDecalbehavior, removeDecalBehavior} from '../interfaces/decal.interface';
+import {Fillable, fillBehavior} from '../interfaces/fill-slot.interface';
 import {Pickable} from '../interfaces/pickable.interface';
-import {SlotableDecorator} from '../base/slotable.decorator';
-import {Activatable, activateSlotBehavior} from '../interfaces/activatable.interface';
+import {GameObjectDecorator} from '../base/game-object.decorator';
+import {Activatable, activateBehavior} from '../interfaces/activatable.interface';
 import {Lightable} from '../interfaces/lightable.interface';
 import {Dimensions} from '../base/dimensions.model';
-import {SlotType} from '../base/game-object-type.model';
+import {GameObjectType} from '../base/game-object-type.model';
 
-@SlotableDecorator()
-export class BoxSlot extends SlotTransformNode
-    implements DecalSlot, Lightable, Fillable, Pickable, Activatable {
+@GameObjectDecorator()
+export class BoxGameObject extends TransformNodeGameObject
+    implements DecalGameObject, Lightable, Fillable, Pickable, Activatable {
     decal: Mesh;
     readonly meshes: Mesh[] = [];
 
-    fillSlot = fillSlotBehavior;
-    addDecal = decalSlotBehavior;
+    fillGameObject = fillBehavior;
+    addDecal = addDecalbehavior;
     active = false;
 
-    removeDecal = () => removeDecalSlotBehavior(this);
-    activate = (activateSlot: boolean) => activateSlotBehavior(this, activateSlot);
+    removeDecal = () => removeDecalBehavior(this);
+    activate = (active: boolean) => activateBehavior(this, active);
 
     constructor(
         sceneContext: SceneContext,
-        slotFactory: SlotFactory,
+        gameObjectFactory: GameObjectFactory,
         public readonly lightService: LightContext,
         public readonly materialService: MaterialService,
         public readonly searchContext: SearchContext,
-        parent: SlotTransformNode,
+        parent: TransformNodeGameObject,
     ) {
-        super(sceneContext, slotFactory);
+        super(sceneContext, gameObjectFactory);
         this.parent = parent;
         this.information = this.id;
     }
 
-    init(dimensions: Dimensions, name: string, type: SlotType) {
+    init(dimensions: Dimensions, name: string, type: GameObjectType) {
         this.dimensions = dimensions;
         this.name = name;
-        this.slotType = type;
+        this.gameObjectType = type;
         this.position = this.dimensions.position;
-        this.fillSlot(this);
+        this.fillGameObject(this);
         this.registerAction();
         this.enablePick(false);
     }
@@ -64,7 +64,7 @@ export class BoxSlot extends SlotTransformNode
             new ExecuteCodeAction({
                 trigger: ActionManager.OnPickTrigger,
             }, () => {
-                if (this.searchContext.activeSlot === this) {
+                if (this.searchContext.activeGameObject === this) {
                     this.searchContext.goto();
                 }
             }));

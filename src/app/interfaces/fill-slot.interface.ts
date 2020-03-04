@@ -1,14 +1,14 @@
 import {BoxBuilder, Mesh} from '@babylonjs/core';
-import {SlotTransformNode} from '../slots/transform-node.slot';
-import {BoxSlot} from '../slots/box.slot';
+import {TransformNodeGameObject} from '../game-objects/transform-node.game-object';
+import {BoxGameObject} from '../game-objects/box.game-object';
 
 export interface Fillable {
     readonly meshes?: Mesh[];
 
-    fillSlot(meshes: SlotTransformNode);
+    fillGameObject(meshes: TransformNodeGameObject);
 }
 
-export function fillSlotBehavior(parent: BoxSlot) {
+export function fillBehavior(parent: BoxGameObject) {
     if (parent.meshes.length) {
         parent.meshes.forEach(m => m.dispose());
         parent.meshes.length = 0;
@@ -21,6 +21,6 @@ export function fillSlotBehavior(parent: BoxSlot) {
     parent.meshes.push(box);
 }
 
-export function isContainerSlot(toCheck: any): toCheck is Fillable {
+export function isContainer(toCheck: any): toCheck is Fillable {
     return toCheck.fillSlot;
 }

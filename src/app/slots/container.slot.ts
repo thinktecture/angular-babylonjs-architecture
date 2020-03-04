@@ -4,7 +4,7 @@ import {SlotTransformNode} from './transform-node.slot';
 import {SlotContainerStack, slotContainerStackBehavior} from '../interfaces/slot-stack.interface';
 import {SlotableDecorator} from '../base/slotable.decorator';
 import {Dimensions} from '../base/dimensions.model';
-import {SlotType} from '../base/slot-type.model';
+import {SlotType} from '../base/game-object-type.model';
 
 
 @SlotableDecorator()

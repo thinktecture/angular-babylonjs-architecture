@@ -44,3 +44,13 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/babylonjs-architecture/.idea/babylonjs-architecture.iml
+/babylonjs-architecture/.idea/codeStyles/codeStyleConfig.xml
+/babylonjs-architecture/.idea/codeStyles/Project.xml
+/babylonjs-architecture/.idea/compiler.xml
+/babylonjs-architecture/.idea/inspectionProfiles/Project_Default.xml
+/babylonjs-architecture/.idea/misc.xml
+/babylonjs-architecture/.idea/modules.xml
+/babylonjs-architecture/.idea/vcs.xml
+/babylonjs-architecture/.idea/workspace.xml
+/babylonjs-architecture/.prettierrc

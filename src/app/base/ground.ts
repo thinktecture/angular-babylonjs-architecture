@@ -1,28 +1,28 @@
 import {Mesh, MeshBuilder, Vector3} from '@babylonjs/core';
 import {MaterialService} from '../services/material.service';
 import {SceneContext} from '../services/scene.context';
-import {SlotFactory} from '../services/slot.factory';
-import {SlotTransformNode} from '../slots/transform-node.slot';
+import {GameObjectFactory} from '../services/game-object.factory';
+import {TransformNodeGameObject} from '../game-objects/transform-node.game-object';
 import {SCALE} from '../constants';
-import {DecalSlot, removeDecalSlotBehavior} from '../interfaces/decal.interface';
-import {SlotableDecorator} from './slotable.decorator';
+import {DecalGameObject, removeDecalBehavior} from '../interfaces/decal.interface';
+import {GameObjectDecorator} from './game-object.decorator';
 import {Dimensions} from './dimensions.model';
-import {SlotType} from './slot-type.model';
+import {GameObjectType} from './game-object-type.model';
 
-@SlotableDecorator()
-export class Ground extends SlotTransformNode implements DecalSlot {
+@GameObjectDecorator()
+export class Ground extends TransformNodeGameObject implements DecalGameObject {
     decal: Mesh;
     mesh: Mesh;
 
     constructor(
         scene: SceneContext,
-        factory: SlotFactory,
+        factory: GameObjectFactory,
         private readonly materialService: MaterialService,
     ) {
         super(scene, factory);
     }
 
-    init(dimensions: Dimensions, name: string, type: SlotType) {
+    init(dimensions: Dimensions, name: string, type: GameObjectType) {
         this.mesh = MeshBuilder.CreateGround(
             'ground',
             {width: dimensions.width, height: dimensions.height},
@@ -33,7 +33,7 @@ export class Ground extends SlotTransformNode implements DecalSlot {
         this.addDecal();
     }
 
-    removeDecal = () => removeDecalSlotBehavior(this);
+    removeDecal = () => removeDecalBehavior(this);
 
     addDecal() {
         if (!this.decal) {

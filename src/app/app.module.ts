@@ -9,9 +9,9 @@ import {Bulb} from './base/bulb';
 import {Ground} from './base/ground';
 import {LightContext} from './services/light.context';
 import {MaterialService} from './services/material.service';
-import {provideSlot} from './services/slot.factory';
-import {ContainerSlot} from './slots/container.slot';
-import {BoxSlot} from './slots/box.slot';
+import {provideGameObject} from './services/game-object.factory';
+import {ContainerGameObject} from './game-objects/container.game-object';
+import {BoxGameObject} from './game-objects/box.game-object';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SearchComponent} from './ui/search/search.component';
 import {SearchContext} from './services/search.context';
@@ -33,10 +33,10 @@ import {MatOptionModule} from '@angular/material/core';
         MatAutocompleteModule,
     ],
     providers: [
-        provideSlot(ContainerSlot),
-        provideSlot(BoxSlot, [LightContext, MaterialService, SearchContext]),
-        provideSlot(Ground, [MaterialService]),
-        provideSlot(Bulb, [LightContext, MaterialService]),
+        provideGameObject(ContainerGameObject),
+        provideGameObject(BoxGameObject, [LightContext, MaterialService, SearchContext]),
+        provideGameObject(Ground, [MaterialService]),
+        provideGameObject(Bulb, [LightContext, MaterialService]),
 
     ],
     bootstrap: [AppComponent],

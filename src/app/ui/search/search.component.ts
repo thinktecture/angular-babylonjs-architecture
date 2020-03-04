@@ -4,7 +4,7 @@ import {CameraContext} from '../../services/camera.context';
 import {MaterialService} from '../../services/material.service';
 import {SearchContext} from '../../services/search.context';
 import {SceneContext} from '../../services/scene.context';
-import {BoxSlot} from '../../slots/box.slot';
+import {BoxGameObject} from '../../game-objects/box.game-object';
 import {filter, takeUntil} from 'rxjs/operators';
 import {BehaviorSubject, Subject} from 'rxjs';
 
@@ -28,7 +28,7 @@ export class SearchComponent implements AfterContentChecked, OnDestroy {
     ngAfterContentChecked() {
         this.scene.sceneCreated$.pipe(takeUntil(this.destroy), filter(x => !!x))
             .subscribe(scene => scene.onNewTransformNodeAddedObservable.add(() => {
-                this.options$.next(this.scene.scene.transformNodes.filter(node => node instanceof BoxSlot).map((box: BoxSlot) => box.information));
+                this.options$.next(this.scene.scene.transformNodes.filter(node => node instanceof BoxGameObject).map((box: BoxGameObject) => box.information));
             }));
     }
 
@@ -52,8 +52,8 @@ export class SearchComponent implements AfterContentChecked, OnDestroy {
             return;
         }
         this.clear(false);
-        const activeSlot = this.searchContext.findSlot(term, BoxSlot);
-        this.camera.displayMiniMap(this.scene.scene, activeSlot.position);
+        const gameObject = this.searchContext.findGameObject(term, BoxGameObject);
+        this.camera.displayMiniMap(this.scene.scene, gameObject.position);
     }
 
 }
